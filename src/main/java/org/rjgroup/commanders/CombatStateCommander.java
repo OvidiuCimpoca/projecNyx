@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CombatStateCommander extends BasicCommander{
 
+    protected final String COMMANDER_NAME = "Combat Commander";
     private List<CharacterInfo> characterInfos = new ArrayList<>();;
 
     public CombatStateCommander() {

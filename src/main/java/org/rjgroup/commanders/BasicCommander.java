@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class BasicCommander {
 
+    protected final String COMMANDER_NAME = "Base Commander";
     protected Scanner scanner;
     protected String other_commands = "";
 
@@ -34,7 +35,7 @@ public class BasicCommander {
                     helpCommand();
                     break;
                 case "exit":
-                    System.out.println("By! By!");
+                    System.out.println(COMMANDER_NAME + "! By! By!");
                     run = false;
                     break;
                 default:

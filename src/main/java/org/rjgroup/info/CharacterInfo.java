@@ -19,6 +19,19 @@ public class CharacterInfo {
         setName(setName);
     }
 
+    public CharacterInfo(CharacterInfo character) {
+        setName(character.getName());
+        setMaxHP(character.getMaxHP());
+        setHP(character.getHP());
+        setAC(character.getAC());
+        setStrength(character.getStrength());
+        setDexterity(character.getDexterity());
+        setIntelligence(character.getIntelligence());
+        setAttackDie(character.getAttackDie());
+        setDamageDie(character.getDamageDie());
+        setAlive(character.isAlive);
+    }
+
     public String getName() {
         return name;
     }

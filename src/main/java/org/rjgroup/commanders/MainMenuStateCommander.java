@@ -9,9 +9,12 @@ import java.util.List;
 
 public class MainMenuStateCommander extends BasicCommander {
 
+    protected final String COMMANDER_NAME = "Main Menu Commander";
+
     public MainMenuStateCommander() {
         super();
-        other_commands = "\ncombat - Try Combat Tutorial";
+        other_commands = "\ncombat - Try Combat Tutorial"
+            + "\nnewChar - Create and Edit a new Character";
     }
 
     protected void otherCommandList(String[] commandList) {
@@ -26,6 +29,10 @@ public class MainMenuStateCommander extends BasicCommander {
                 CombatStateCommander combatCommander = new CombatStateCommander(characterInfoList);
 
                 combatCommander.run();
+                break;
+            case "newChar":
+                CharacterEditorCommander editCharacter = new CharacterEditorCommander();
+                editCharacter.run();
                 break;
         }
     }
