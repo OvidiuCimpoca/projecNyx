@@ -1,23 +1,16 @@
 package org.rjgroup;
 
-import org.rjgroup.commanders.CharacterCommander;
-import org.rjgroup.info.CharacterInfo;
-import org.rjgroup.info.GoblinCharacterInfo;
-import org.rjgroup.info.PlayerCharacterInfo;
+import org.rjgroup.commanders.MainMenuStateCommander;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/*
+* The main Entry point of the Project loads Command Line Prompt
+* */
+// TODO: Introduce States, Local Movement State, Global Movement State and the Menu States
 public class Main {
     static void main() {
 
-        CharacterCommander com = new CharacterCommander();
-        List<CharacterInfo> characterInfoList = new ArrayList<>();
+        MainMenuStateCommander mainCommander = new MainMenuStateCommander();
 
-        characterInfoList.add(new PlayerCharacterInfo("Player"));
-        characterInfoList.add(new GoblinCharacterInfo("Gob1"));
-        characterInfoList.add(new GoblinCharacterInfo("Gob2"));
-
-        com.run(characterInfoList);
+        mainCommander.run();
     }
 }

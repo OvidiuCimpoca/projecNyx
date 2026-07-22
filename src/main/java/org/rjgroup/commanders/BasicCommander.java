@@ -1,9 +1,6 @@
 package org.rjgroup.commanders;
 
-import org.rjgroup.info.CharacterInfo;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class BasicCommander {
@@ -24,38 +21,26 @@ public class BasicCommander {
         );
     }
 
-    public void run(List<CharacterInfo> list) {
+    public void run() {
         boolean run = true;
 
         while(run) {
-            printScene(list);
             System.out.print("run: ");
             String[] commandList = scanner.nextLine().split(" ");
 
+//            clearScreen();
             switch(commandList[0]) {
                 case "help":
-                    clearScreen();
                     helpCommand();
                     break;
                 case "exit":
-                    clearScreen();
                     System.out.println("By! By!");
                     run = false;
                     break;
                 default:
-                    clearScreen();
-                    otherCommandList(commandList, list);
+                    otherCommandList(commandList);
             }
         }
-    }
-
-    private void printScene(List<CharacterInfo> characterList) {
-
-        characterList.forEach(characterInfo -> {
-            String status = (characterInfo.isAlive())? "alive" : "dead";
-            System.out.println("Character '" + characterInfo.getName() + "' is " + status + " with HP: "
-                    + characterInfo.getHP() + "/" + characterInfo.getMaxHP() + "!" );
-        });
     }
 
     private void clearScreen() {
@@ -69,7 +54,7 @@ public class BasicCommander {
         }
     }
 
-    protected void otherCommandList(String[] command, List<CharacterInfo> list) {
+    protected void otherCommandList(String[] command) {
         switch (command[0]) {
             default:
                 System.out.println("Warning! " + command[0] + " is invalid use 'help' command to see list of commands!");

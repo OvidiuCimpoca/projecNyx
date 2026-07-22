@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CharacterCommander extends BasicCommander{
 
-    public CharacterCommander() {
+public class CombatStateCommander extends BasicCommander{
+
+    private List<CharacterInfo> characterInfos = new ArrayList<>();;
+
+    public CombatStateCommander() {
         super();
         other_commands =
                 "\nattack <attacker name> <target name>- attack a target"
@@ -17,7 +20,22 @@ public class CharacterCommander extends BasicCommander{
         ;
     }
 
-    protected void otherCommandList(String[] commandList, List<CharacterInfo> characterInfos) {
+    public CombatStateCommander(List<CharacterInfo> characterInfos) {
+        super();
+        other_commands =
+                "\nattack <attacker name> <target name>- attack a target"
+                        + "\ncharList - list the names of the characters"
+                        + "\ncharInfo <list character names>- show character info"
+        ;
+
+        setCharacterInfos(characterInfos);
+    }
+
+    public void setCharacterInfos(List<CharacterInfo> characterInfoList) {
+        this.characterInfos.addAll(characterInfoList);
+    }
+
+    protected void otherCommandList(String[] commandList) {
         switch (commandList[0]) {
             case "attack":
                 attack(commandList, characterInfos);
