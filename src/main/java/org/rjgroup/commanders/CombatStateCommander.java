@@ -16,8 +16,11 @@ public class CombatStateCommander extends BasicCommander{
         super();
         other_commands =
                 "\nattack <attacker name> <target name>- attack a target"
-              + "\ncharList - list the names of the characters"
-              + "\ncharInfo <list character names>- show character info"
+                +"\n-a <attacker name> <target name>- attack a target"
+                + "\nlist - list the names of the characters"
+                + "\n-l - list the names of the characters"
+                + "\ninfo <list character names>- show character info"
+                + "\n-i <list character names>- show character info"
         ;
     }
 
@@ -25,8 +28,11 @@ public class CombatStateCommander extends BasicCommander{
         super();
         other_commands =
                 "\nattack <attacker name> <target name>- attack a target"
-                        + "\ncharList - list the names of the characters"
-                        + "\ncharInfo <list character names>- show character info"
+                +"\n-a <attacker name> <target name>- attack a target"
+                + "\nlist - list the names of the characters"
+                + "\n-l - list the names of the characters"
+                + "\ninfo <list character names>- show character info"
+                + "\n-i <list character names>- show character info"
         ;
 
         setCharacterInfos(characterInfos);
@@ -39,12 +45,15 @@ public class CombatStateCommander extends BasicCommander{
     protected void otherCommandList(String[] commandList) {
         switch (commandList[0]) {
             case "attack":
+            case "-a":
                 attack(commandList, characterInfos);
                 break;
-            case "charList":
+            case "list":
+            case "-l":
                 listCharacterNames(characterInfos);
                 break;
-            case "charInfo":
+            case "info":
+            case "-i":
                 showCharacterInfo(commandList, characterInfos);
                 break;
             default:

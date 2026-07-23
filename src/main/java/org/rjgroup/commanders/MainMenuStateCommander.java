@@ -14,7 +14,7 @@ public class MainMenuStateCommander extends BasicCommander {
     public MainMenuStateCommander() {
         super();
         other_commands = "\ncombat - Try Combat Tutorial"
-            + "\nnewChar - Create and Edit a new Character";
+            + "\nedit - Create and Edit a new Character";
     }
 
     protected void otherCommandList(String[] commandList) {
@@ -30,7 +30,7 @@ public class MainMenuStateCommander extends BasicCommander {
 
                 combatCommander.run();
                 break;
-            case "newChar":
+            case "edit":
                 CharacterEditorCommander editCharacter = new CharacterEditorCommander();
                 editCharacter.run();
                 break;

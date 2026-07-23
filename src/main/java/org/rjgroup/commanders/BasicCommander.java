@@ -17,7 +17,9 @@ public class BasicCommander {
 
         System.out.println(
                   "help - list of commands"
-                + "\nexit - quit terminal"
+                + "\n-h - list of commands"
+                + "\nexit - exit of commands"
+                + "\n-e - exit command"
                 + other_commands
         );
     }
@@ -32,9 +34,11 @@ public class BasicCommander {
 //            clearScreen();
             switch(commandList[0]) {
                 case "help":
+                case "-h":
                     helpCommand();
                     break;
                 case "exit":
+                case "-e":
                     exitCommand();
                     run = false;
                     break;
