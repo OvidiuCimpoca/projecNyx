@@ -13,7 +13,9 @@ public class CharacterInfo {
     private int damageDie;
     private boolean isAlive;
 
-    public CharacterInfo() {}
+    public CharacterInfo() {
+        setAlive(true);
+    }
 
     CharacterInfo(String setName) {
         setName(setName);

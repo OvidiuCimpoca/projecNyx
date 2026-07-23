@@ -5,20 +5,21 @@ import org.rjgroup.info.CharacterInfo;
 public class CharacterEditorCommander extends BasicCommander {
 
     protected final String COMMANDER_NAME = "Character Editor";
+    protected final int[] DIE_LIST = {4, 6, 8, 10, 12, 20};
     private CharacterInfo character;
 
     public CharacterEditorCommander() {
         super();
         other_commands = "\nprint - print the character info"
+                + "\n-p - print the character info"
                 + "\nname <name> - change the name with the new name"
                 + "\nstatus <alive/dead> - change the status"
-                + "\nmaxHp <value> - change the max HP to the new value"
+                + "\nmaxhp <value> - change the max HP to the new value"
                 + "\nhp <value> - change the max HP to the new value"
-                + "\nstrength <value> - set strength value"
-                + "\ndexterity <value> - set dexterity value"
-                + "\nintelligence <value> - set intelligence value"
-                + "\nattackDie <value> - set attack die value"
-                + "\nhitDie <value> - set hit die value"
+                + "\nstr <value> - set strength value"
+                + "\ndex <value> - set dexterity value"
+                + "\nint <value> - set intelligence value"
+                + "\ndie <option> <value> - set a die value for attack or damage, for more info use -h or help"
         ;
         character = new CharacterInfo();
     }
@@ -27,14 +28,14 @@ public class CharacterEditorCommander extends BasicCommander {
         super();
         setCharacter(character);
         other_commands = "\nprint - print the character info"
+            + "\n-p - print the character info"
             + "\nname <name> - change the name with the new name"
-            + "\nmaxHp <value> - change the max HP to the new value"
+            + "\nmaxhp <value> - change the max HP to the new value"
             + "\nhp <value> - change the max HP to the new value"
-            + "\nstrength <value> - set strength value"
-            + "\ndexterity <value> - set dexterity value"
-            + "\nintelligence <value> - set intelligence value"
-            + "\nattackDie <value> - set attack die value"
-            + "\nhitDie <value> - set hit die value"
+            + "\nstr<value> - set strength value"
+            + "\ndex <value> - set dexterity value"
+            + "\nint <value> - set intelligence value"
+            + "\ndie <option> <value> - set a die value for attack or damage, for more info use -h or help"
         ;
     }
 
@@ -47,7 +48,11 @@ public class CharacterEditorCommander extends BasicCommander {
     }
 
     public void otherCommandList(String[] commandList) {
+
+        int input;
+
         switch(commandList[0]) {
+            case "-p":
             case "print":
                 printCharacter();
                 break;
@@ -61,92 +66,131 @@ public class CharacterEditorCommander extends BasicCommander {
                 break;
             case "status":
                 if(commandList.length == 2) {
-                    if("alive".equals(commandList[1])) {
-                        character.setAlive(true);
-                    } else if ("dead".equals(commandList[1])) {
-                        character.setAlive(false);
-                    }
+                    setStatus(commandList[1]);
                 } else {
                     System.out.print("Set status(alive/dead):");
                     String newStatus = scanner.nextLine();
-                    if("alive".equals(newStatus)) {
-                        character.setAlive(true);
-                    } else if ("dead".equals(newStatus)) {
-                        character.setAlive(false);
-                    }
+                    setStatus(newStatus);
                 }
                 break;
-            case "maxHp":
-                if(commandList.length == 2) {
-                    character.setMaxHP(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("New max hit points:");
-                    character.setMaxHP(Integer.parseInt(scanner.nextLine()));
-                }
+            case "maxhp":
+                input = checkIfIsInteger(commandList, 1);
+                character.setMaxHP(input);
                 break;
             case "hp":
-                if(commandList.length == 2) {
-                    if(checkHP(Integer.parseInt(commandList[1]))) {
-                        character.setHP(Integer.parseInt(commandList[1]));
-                    } else {
-                        System.out.println("Invalid hit points should not be greater then max hit points.");
-                    }
+                input = checkIfIsInteger(commandList, 1);
+                if(checkHP(input)) {
+                    character.setHP(input);
                 } else {
-                    System.out.print("New hit points:");
-                    int newHP = Integer.parseInt(scanner.nextLine());
-                    if(checkHP(newHP)) {
-                        character.setHP(newHP);
-                    } else {
-                        System.out.println("Invalid hit points should not be greater then max hit points.");
-                    }
+                    System.out.println("Invalid hit points should not be greater then max hit points.");
                 }
                 break;
-            case "strength":
-                if(commandList.length == 2) {
-                    character.setStrength(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("Set Strength:");
-                    character.setStrength(Integer.parseInt(scanner.nextLine()));
-                }
+            case "str":
+                input = checkIfIsInteger(commandList, 1);
+                character.setStrength(input);
+
                 character.setAC(character.getDexterity() + (character.getStrength()/2));
                 break;
-            case "dexterity":
-                if(commandList.length == 2) {
-                    character.setDexterity(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("Set Dexterity:");
-                    character.setDexterity(Integer.parseInt(scanner.nextLine()));
-                }
+            case "dex":
+                input = checkIfIsInteger(commandList, 1);
+                character.setDexterity(input);
+
                 character.setAC(character.getDexterity() + (character.getStrength()/2));
                 break;
-            case "intelligence":
-                if(commandList.length == 2) {
-                    character.setIntelligence(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("Set Intelligence:");
-                    character.setIntelligence(Integer.parseInt(scanner.nextLine()));
-                }
+            case "int":
+                input = checkIfIsInteger(commandList, 1);
+                character.setIntelligence(input);
                 break;
-            case "attackDie":
-                if(commandList.length == 2) {
-                    character.setAttackDie(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("Set Attack Die:");
-                    character.setAttackDie(Integer.parseInt(scanner.nextLine()));
-                }
-                break;
-            case "hitDie":
-                if(commandList.length == 2) {
-                    character.setDamageDie(Integer.parseInt(commandList[1]));
-                } else {
-                    System.out.print("Set Damage Die:");
-                    character.setDamageDie(Integer.parseInt(scanner.nextLine()));
-                }
+            case "die":
+                setDieCommand(commandList);
                 break;
             default:
                 System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");
                 break;
         }
+    }
+
+    private void setStatus(String status) {
+
+        if("alive".equals(status)) {
+            character.setAlive(true);
+        } else if ("dead".equals(status)) {
+            character.setAlive(false);
+        } else {
+            System.out.println("Status bust have value of alive/dead.");
+        }
+    }
+
+    private int checkIfIsInteger(String[] commandLine, int valueIndex) {
+
+        int integerValue = 0;
+        String stringValue;
+        while (integerValue <= 0) {
+            try{
+                stringValue = commandLine[valueIndex];
+            } catch (Exception e) {
+                System.out.print("Input numerical value: ");
+                stringValue = scanner.nextLine();
+            }
+
+            try{
+                integerValue = Integer.parseInt(stringValue);
+            } catch (Exception e) {
+                System.out.println("Value input not a number!");
+            }
+        }
+
+        return integerValue;
+    }
+
+    private void setDieCommand(String[] commandLine) {
+
+        try{
+
+            int input;
+            switch (commandLine[1]) {
+                case "-h":
+                case "help":
+                    System.out.print("die <options> <value> - set the die type where, where <options> is contained in"
+                            + "\n[-a, attack, -d, damage, -h, help] with <-a/attack> for the attack die, <-d/damage> for"
+                            + "\nthe damage die and <-h/help> to display help."
+                    );
+                    break;
+                case "-a":
+                case "attack":
+                    input = checkIfIsInteger(commandLine, 2);
+                    if (checkIfDie(input)) {
+                        character.setAttackDie(input);
+                    } else {
+                        System.out.println("Incorrect die input it has to be a value of [4,6,8,10,12,20]!");
+                    }
+                    break;
+                case "-d":
+                case "damage":
+                    input = checkIfIsInteger(commandLine, 2);
+                    if (checkIfDie(input)) {
+                        character.setDamageDie(input);
+                    } else {
+                        System.out.println("Incorrect die input it has to be a value of [4,6,8,10,12,20]!");
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("Select an option for die <option> command, for help use -h, or help option!");
+        }
+
+    }
+
+    private boolean checkIfDie(int dieInput) {
+
+        boolean isDie = false;
+        for (int die : DIE_LIST) {
+            if (die == dieInput) {
+                isDie = true;
+            }
+        }
+
+        return isDie;
     }
 
     private boolean checkHP(int newHP) {
