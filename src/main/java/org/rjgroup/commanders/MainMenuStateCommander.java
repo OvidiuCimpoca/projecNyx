@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MainMenuStateCommander extends BasicCommander {
 
-    protected final String COMMANDER_NAME = "Main Menu Commander";
+    protected final String COMMANDER_NAME = "Main Menu";
 
     public MainMenuStateCommander() {
         super();
@@ -34,6 +34,14 @@ public class MainMenuStateCommander extends BasicCommander {
                 CharacterEditorCommander editCharacter = new CharacterEditorCommander();
                 editCharacter.run();
                 break;
+            default:
+                System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");
+                break;
         }
+    }
+
+    protected void exitCommand() {
+
+        System.out.println("Exiting " + COMMANDER_NAME + "!");
     }
 }

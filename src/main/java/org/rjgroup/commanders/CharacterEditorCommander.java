@@ -4,7 +4,7 @@ import org.rjgroup.info.CharacterInfo;
 
 public class CharacterEditorCommander extends BasicCommander {
 
-    protected final String COMMANDER_NAME = "Character Edit Commander";
+    protected final String COMMANDER_NAME = "Character Editor";
     private CharacterInfo character;
 
     public CharacterEditorCommander() {
@@ -46,24 +46,24 @@ public class CharacterEditorCommander extends BasicCommander {
         character = characterInfo;
     }
 
-    public void otherCommandList(String[] command) {
-        switch(command[0]) {
+    public void otherCommandList(String[] commandList) {
+        switch(commandList[0]) {
             case "print":
                 printCharacter();
                 break;
             case "name":
-                if(command.length == 2) {
-                    character.setName(command[1]);
+                if(commandList.length == 2) {
+                    character.setName(commandList[1]);
                 } else {
                     System.out.print("New name:");
                     character.setName(scanner.nextLine());
                 }
                 break;
             case "status":
-                if(command.length == 2) {
-                    if("alive".equals(command[1])) {
+                if(commandList.length == 2) {
+                    if("alive".equals(commandList[1])) {
                         character.setAlive(true);
-                    } else if ("dead".equals(command[1])) {
+                    } else if ("dead".equals(commandList[1])) {
                         character.setAlive(false);
                     }
                 } else {
@@ -77,25 +77,33 @@ public class CharacterEditorCommander extends BasicCommander {
                 }
                 break;
             case "maxHp":
-                if(command.length == 2) {
-                    character.setMaxHP(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setMaxHP(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("New max hit points:");
                     character.setMaxHP(Integer.parseInt(scanner.nextLine()));
                 }
                 break;
-                // TODO: HP can't be larger then maxHP
             case "hp":
-                if(command.length == 2) {
-                    character.setHP(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    if(checkHP(Integer.parseInt(commandList[1]))) {
+                        character.setHP(Integer.parseInt(commandList[1]));
+                    } else {
+                        System.out.println("Invalid hit points should not be greater then max hit points.");
+                    }
                 } else {
                     System.out.print("New hit points:");
-                    character.setHP(Integer.parseInt(scanner.nextLine()));
+                    int newHP = Integer.parseInt(scanner.nextLine());
+                    if(checkHP(newHP)) {
+                        character.setHP(newHP);
+                    } else {
+                        System.out.println("Invalid hit points should not be greater then max hit points.");
+                    }
                 }
                 break;
             case "strength":
-                if(command.length == 2) {
-                    character.setStrength(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setStrength(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("Set Strength:");
                     character.setStrength(Integer.parseInt(scanner.nextLine()));
@@ -103,8 +111,8 @@ public class CharacterEditorCommander extends BasicCommander {
                 character.setAC(character.getDexterity() + (character.getStrength()/2));
                 break;
             case "dexterity":
-                if(command.length == 2) {
-                    character.setDexterity(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setDexterity(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("Set Dexterity:");
                     character.setDexterity(Integer.parseInt(scanner.nextLine()));
@@ -112,30 +120,38 @@ public class CharacterEditorCommander extends BasicCommander {
                 character.setAC(character.getDexterity() + (character.getStrength()/2));
                 break;
             case "intelligence":
-                if(command.length == 2) {
-                    character.setIntelligence(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setIntelligence(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("Set Intelligence:");
                     character.setIntelligence(Integer.parseInt(scanner.nextLine()));
                 }
                 break;
             case "attackDie":
-                if(command.length == 2) {
-                    character.setAttackDie(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setAttackDie(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("Set Attack Die:");
                     character.setAttackDie(Integer.parseInt(scanner.nextLine()));
                 }
                 break;
             case "hitDie":
-                if(command.length == 2) {
-                    character.setDamageDie(Integer.parseInt(command[1]));
+                if(commandList.length == 2) {
+                    character.setDamageDie(Integer.parseInt(commandList[1]));
                 } else {
                     System.out.print("Set Damage Die:");
                     character.setDamageDie(Integer.parseInt(scanner.nextLine()));
                 }
                 break;
+            default:
+                System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");
+                break;
         }
+    }
+
+    private boolean checkHP(int newHP) {
+
+        return (newHP <= character.getMaxHP());
     }
 
     public void printCharacter() {
@@ -150,5 +166,10 @@ public class CharacterEditorCommander extends BasicCommander {
         System.out.println("Intelligence: " + character.getIntelligence());
         System.out.println("Attack Die: " + character.getAttackDie());
         System.out.println("Damage Die: " + character.getDamageDie());
+    }
+
+    protected void exitCommand() {
+
+        System.out.println("Exiting " + COMMANDER_NAME + "!");
     }
 }

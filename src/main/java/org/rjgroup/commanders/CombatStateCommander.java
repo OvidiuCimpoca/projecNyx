@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CombatStateCommander extends BasicCommander{
 
-    protected final String COMMANDER_NAME = "Combat Commander";
+    protected final String COMMANDER_NAME = "Combat Demo";
     private List<CharacterInfo> characterInfos = new ArrayList<>();;
 
     public CombatStateCommander() {
@@ -49,6 +49,7 @@ public class CombatStateCommander extends BasicCommander{
                 break;
             default:
                 System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");
+                break;
         }
     }
 
@@ -141,5 +142,10 @@ public class CombatStateCommander extends BasicCommander{
                 System.out.println("Intelligence: " + characterInfo.getIntelligence());
             }
         });
+    }
+
+    protected void exitCommand() {
+
+        System.out.println("Exiting " + COMMANDER_NAME + "!");
     }
 }

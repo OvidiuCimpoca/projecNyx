@@ -35,13 +35,19 @@ public class BasicCommander {
                     helpCommand();
                     break;
                 case "exit":
-                    System.out.println(COMMANDER_NAME + "! By! By!");
+                    exitCommand();
                     run = false;
                     break;
                 default:
                     otherCommandList(commandList);
+                    break;
             }
         }
+    }
+
+    protected void exitCommand() {
+
+        System.out.println("Exiting " + COMMANDER_NAME + "!");
     }
 
     private void clearScreen() {
@@ -55,10 +61,8 @@ public class BasicCommander {
         }
     }
 
-    protected void otherCommandList(String[] command) {
-        switch (command[0]) {
-            default:
-                System.out.println("Warning! " + command[0] + " is invalid use 'help' command to see list of commands!");
-        }
+    protected void otherCommandList(String[] commandList) {
+
+        System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");
     }
 }
