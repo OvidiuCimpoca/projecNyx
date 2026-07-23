@@ -113,9 +113,9 @@ public class CharacterEditorCommander extends BasicCommander {
     private void setStatus(String status) {
 
         if("alive".equals(status)) {
-            character.setAlive(true);
+            character.setStatus(true);
         } else if ("dead".equals(status)) {
-            character.setAlive(false);
+            character.setStatus(false);
         } else {
             System.out.println("Status bust have value of alive/dead.");
         }
@@ -202,7 +202,7 @@ public class CharacterEditorCommander extends BasicCommander {
 
         System.out.println("------------------------");
         System.out.println("Name: " + character.getName());
-        System.out.println("Status: " + ((character.isAlive())? "alive": "dead"));
+        System.out.println("Status: " + ((character.isStatus())? "alive": "dead"));
         System.out.println("Hit Points:" + character.getHP() + "/" + character.getMaxHP());
         System.out.println("Armor Class: " + character.getAC());
         System.out.println("Strength: " + character.getStrength());

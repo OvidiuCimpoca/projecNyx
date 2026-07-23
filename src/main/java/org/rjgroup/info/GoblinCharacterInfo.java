@@ -20,6 +20,6 @@ public class GoblinCharacterInfo extends CharacterInfo{
 
         setAttackDie(4);
         setDamageDie(4);
-        setAlive(true);
+        setStatus(true);
     }
 }

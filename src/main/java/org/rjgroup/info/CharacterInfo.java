@@ -3,18 +3,18 @@ package org.rjgroup.info;
 public class CharacterInfo {
 
     private String name;
-    private int maxHP;
-    private int HP;
-    private int AC;
+    private boolean status;
+    private int maxHp;
+    private int hp;
+    private int ac;
     private int strength;
     private int dexterity;
     private int intelligence;
     private int attackDie;
     private int damageDie;
-    private boolean isAlive;
 
     public CharacterInfo() {
-        setAlive(true);
+        setStatus(true);
     }
 
     CharacterInfo(String setName) {
@@ -31,7 +31,7 @@ public class CharacterInfo {
         setIntelligence(character.getIntelligence());
         setAttackDie(character.getAttackDie());
         setDamageDie(character.getDamageDie());
-        setAlive(character.isAlive);
+        setStatus(character.status);
     }
 
     public String getName() {
@@ -43,27 +43,27 @@ public class CharacterInfo {
     }
 
     public int getMaxHP() {
-        return maxHP;
+        return maxHp;
     }
 
     public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
+        this.maxHp = maxHP;
     }
 
     public int getHP() {
-        return HP;
+        return hp;
     }
 
     public void setHP(int HP) {
-        this.HP = HP;
+        this.hp = HP;
     }
 
     public int getAC() {
-        return AC;
+        return ac;
     }
 
     public void setAC(int AC) {
-        this.AC = AC;
+        this.ac = AC;
     }
 
     public int getStrength() {
@@ -116,11 +116,11 @@ public class CharacterInfo {
         return (int)(Math.random() * (getDamageDie() -1)) + 1;
     }
 
-    public boolean isAlive() {
-        return isAlive;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setAlive(boolean alive) {
-        isAlive = alive;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

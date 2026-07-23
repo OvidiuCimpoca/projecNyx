@@ -20,6 +20,6 @@ public class PlayerCharacterInfo extends CharacterInfo{
 
         setAttackDie(6);
         setDamageDie(4);
-        setAlive(true);
+        setStatus(true);
     }
 }

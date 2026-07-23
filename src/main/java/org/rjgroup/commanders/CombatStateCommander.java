@@ -106,7 +106,7 @@ public class CombatStateCommander extends BasicCommander{
                 target.setHP(newHP);
             } else {
                 target.setHP(0);
-                target.setAlive(false);
+                target.setStatus(false);
             }
         } else {
             System.out.println("Missed!");
@@ -134,7 +134,7 @@ public class CombatStateCommander extends BasicCommander{
             if(names.contains(characterInfo.getName())) {
                 System.out.println("------------------------");
                 System.out.println("Character: " + characterInfo.getName());
-                System.out.println("Status: " + characterInfo.isAlive());
+                System.out.println("Status: " + characterInfo.isStatus());
                 System.out.println("Hit Points:" + characterInfo.getHP() + "/" + characterInfo.getMaxHP());
                 System.out.println("Armor Class: " + characterInfo.getAC());
                 System.out.println("Strength: " + characterInfo.getStrength());
