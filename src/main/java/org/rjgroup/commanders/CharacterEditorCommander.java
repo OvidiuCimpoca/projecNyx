@@ -52,6 +52,8 @@ public class CharacterEditorCommander extends BasicCommander {
         int input;
 
         switch(commandList[0]) {
+            case "":
+                break;
             case "-p":
             case "print":
                 printCharacter();

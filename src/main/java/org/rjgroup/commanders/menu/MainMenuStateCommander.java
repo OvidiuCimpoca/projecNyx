@@ -1,5 +1,9 @@
-package org.rjgroup.commanders;
+package org.rjgroup.commanders.menu;
 
+import org.rjgroup.commanders.BasicCommander;
+import org.rjgroup.commanders.CharacterEditorCommander;
+import org.rjgroup.commanders.CombatStateCommander;
+import org.rjgroup.commanders.map.MapCommander;
 import org.rjgroup.info.CharacterInfo;
 import org.rjgroup.info.GoblinCharacterInfo;
 import org.rjgroup.info.PlayerCharacterInfo;
@@ -14,13 +18,16 @@ public class MainMenuStateCommander extends BasicCommander {
     public MainMenuStateCommander() {
         super();
         other_commands = "\ncombat - Try Combat Tutorial"
-            + "\nedit - Create and Edit a new Character";
+            + "\nedit - Create and Edit a new Character"
+            + "\nmap - Run map demo";
     }
 
     protected void otherCommandList(String[] commandList) {
         switch (commandList[0]) {
             // Todo: load Player info from a save file
             // Todo: Make save file system
+            case "":
+                break;
             case "combat":
                 List<CharacterInfo> characterInfoList = new ArrayList<>();
                 characterInfoList.add(new PlayerCharacterInfo("Player"));
@@ -33,6 +40,10 @@ public class MainMenuStateCommander extends BasicCommander {
             case "edit":
                 CharacterEditorCommander editCharacter = new CharacterEditorCommander();
                 editCharacter.run();
+                break;
+            case "map":
+                MapCommander map = new MapCommander();
+                map.run();
                 break;
             default:
                 System.out.println("Warning! " + commandList[0] + " is invalid use 'help' command to see list of commands!");

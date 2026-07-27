@@ -44,6 +44,8 @@ public class CombatStateCommander extends BasicCommander{
 
     protected void otherCommandList(String[] commandList) {
         switch (commandList[0]) {
+            case "":
+                break;
             case "attack":
             case "-a":
                 attack(commandList, characterInfos);
